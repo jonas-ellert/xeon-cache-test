@@ -39,4 +39,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} \
         -funroll-loops \
         -march=native")
 
-add_executable(xeon_cache_test main.cpp)
+add_executable(xeon_cache_test main.cpp runner.cpp)
+set_target_properties(xeon_cache_test PROPERTIES COMPILE_FLAGS "-save-temps")

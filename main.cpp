@@ -1,10 +1,9 @@
 #include <iostream>
 #include <random>
 #include <chrono>
-#include <cstdint>
 #include <vector>
 #include <algorithm>
-
+#include "runner.h"
 
 struct {
   template<typename func>
@@ -21,46 +20,25 @@ int main() {
   constexpr uint32_t n_min = 1ULL << 20;
   constexpr uint32_t n_max = 1ULL << 30;
 
-  for (size_t n = n_min; n <= n_max; n *= 2) {
-
-    std::vector<uint32_t> array_a(n);
-    std::vector<uint32_t> array_b(n);
-    std::vector<uint32_t> inverse_array(n);
-    std::iota(array_a.begin(), array_a.end(), (uint32_t) 0);
-    std::shuffle(array_a.begin(), array_a.end(),
+  for (uint32_t n = n_min; n <= n_max; n *= 2) {
+    std::vector <uint32_t> a_vec(n);
+    std::vector <uint32_t> b_vec(n);
+    std::vector <uint32_t> inverse_vec(n);
+    std::iota(a_vec.begin(), a_vec.end(), (uint32_t) 0);
+    std::shuffle(a_vec.begin(), a_vec.end(),
                  std::mt19937{std::random_device{}()});
 
+    runner r{n, a_vec.data(), b_vec.data(), inverse_vec.data()};
 
-    std::fill(array_b.begin(), array_b.end(), (uint32_t) 0);
-    std::cout << "Start sequential... " << std::endl;
-    auto millis_seq = measure_time.run([&]() {
-        for (uint32_t i = 0; i < n; ++i)
-          array_b[i] = array_a[i];
-    });
-    std::cout << "Start random... " << std::endl;
-    auto millis_rand = measure_time.run([&]() {
-        for (uint32_t i = 0; i < n; ++i)
-          inverse_array[array_b[i]] = i;
-    });
+    r.reset();
+    auto millis_seq = measure_time.run([&]() { r.seq(); });
+    auto millis_rand = measure_time.run([&]() { r.scatter(); });
 
+    r.reset();
+    auto millis_split = measure_time.run([&]() { r.split(); });
 
-    std::fill(array_b.begin(), array_b.end(), (uint32_t) 0);
-    std::cout << "Start split... " << std::endl;
-    auto millis_split = measure_time.run([&]() {
-        for (uint32_t i = 0; i < n; ++i)
-          array_b[i] = array_a[i];
-        for (uint32_t i = 0; i < n; ++i)
-          inverse_array[array_b[i]] = i;
-    });
-
-    std::fill(array_b.begin(), array_b.end(), (uint32_t) 0);
-    std::cout << "Start joint... " << std::endl;
-    auto millis_joint = measure_time.run([&]() {
-        for (uint32_t i = 0; i < n; ++i) {
-          array_b[i] = array_a[i];
-          inverse_array[array_b[i]] = i;
-        }
-    });
+    r.reset();
+    auto millis_joint = measure_time.run([&]() { r.joint(); });
 
     auto nps = [n](decltype(millis_joint) const &millis) {
         return n / (millis / 1000.0);
