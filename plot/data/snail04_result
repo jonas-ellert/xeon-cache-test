@@ -1,0 +1,11 @@
+RESULT n=1048576 seq=549 seq_nps=1.90997e+06 rand=2479 rand_nps=422983 split=2861 split_nps=366507 joint=2097 joint_nps=500036
+RESULT n=2097152 seq=1177 seq_nps=1.78178e+06 rand=5643 rand_nps=371638 split=6638 split_nps=315931 joint=5881 joint_nps=356598
+RESULT n=4194304 seq=2332 seq_nps=1.79859e+06 rand=17264 rand_nps=242951 split=20718 split_nps=202447 joint=27171 joint_nps=154367
+RESULT n=8388608 seq=4832 seq_nps=1.73605e+06 rand=49224 rand_nps=170417 split=54861 split_nps=152907 joint=64243 joint_nps=130576
+RESULT n=16777216 seq=10188 seq_nps=1.64676e+06 rand=118475 rand_nps=141610 split=130230 split_nps=128828 joint=142095 joint_nps=118070
+RESULT n=33554432 seq=23593 seq_nps=1.42222e+06 rand=287386 rand_nps=116757 split=313521 split_nps=107025 joint=323427 joint_nps=103747
+RESULT n=67108864 seq=37234 seq_nps=1.80235e+06 rand=693403 rand_nps=96781.9 split=741431 split_nps=90512.6 joint=752003 joint_nps=89240.2
+RESULT n=134217728 seq=74500 seq_nps=1.80158e+06 rand=1570454 rand_nps=85464.3 split=1669274 split_nps=80404.9 joint=1674888 joint_nps=80135.3
+RESULT n=268435456 seq=146761 seq_nps=1.82907e+06 rand=3409259 rand_nps=78737.2 split=3598035 split_nps=74606.1 joint=3607573 joint_nps=74408.9
+RESULT n=536870912 seq=297498 seq_nps=1.80462e+06 rand=8326409 rand_nps=64478.1 split=8699447 split_nps=61713.2 joint=8761980 joint_nps=61272.8
+RESULT n=1073741824 seq=598069 seq_nps=1.79535e+06 rand=31823026 rand_nps=33741 split=32565182 split_nps=32972.1 joint=32658060 joint_nps=32878.3
